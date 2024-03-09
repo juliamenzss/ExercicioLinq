@@ -2,4 +2,4 @@
 
 ## 1. Implemente os testes
 
-## 2. Aplique as otimizaçÕes sugesridas pela IDE 
+## 2. Aplique as otimizações sugeridas pela IDE 
