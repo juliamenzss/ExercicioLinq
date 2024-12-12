@@ -6,7 +6,7 @@ namespace ExercicioLinq
 
         public ExercicioLinqTests()
         {
-            produtos = new List<Produto>(); 
+            produtos = new List<Produto>(); ;
             produtos.Add(new Produto { Nome = "Sabão", Valor = 1.1m, Quantidade = 10 });
             produtos.Add(new Produto { Nome = "Detergente de prato", Valor = 10, Quantidade = 9 });
             produtos.Add(new Produto { Nome = "Água", Valor = (decimal)8.2f, Quantidade = 8 });
