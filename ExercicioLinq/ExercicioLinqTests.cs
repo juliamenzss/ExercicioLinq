@@ -42,6 +42,7 @@ namespace ExercicioLinq
         {
             IEnumerable<Produto> produtosOrdenados = produtos.OrderByDescending(p => p.Valor).ToList();
 
+
             Assert.Equal("Água sanitária", produtosOrdenados.First().Nome);
             Assert.Equal("Sabão", produtosOrdenados.Last().Nome);
         }
@@ -49,7 +50,8 @@ namespace ExercicioLinq
         [Fact(DisplayName = "Produto mais caro")]
         public void Test4()
         {
-            Produto produto = produtos.OrderByDescending(p => (decimal)p.Valor).First();
+            Produto produto = produtos.MaxBy(p => p.Valor);
+            //Produto produto = produtos.OrderByDescending(p => (decimal)p.Valor).First();
 
             Assert.Equal("Água sanitária", produto.Nome);
         }
@@ -57,7 +59,7 @@ namespace ExercicioLinq
         [Fact(DisplayName = "Produto mais barato")]
         public void Test5()
         {
-            Produto produto = produtos.OrderBy(p => (decimal)p.Valor).First();
+            Produto produto = produtos.MinBy(p => p.Valor);
 
             Assert.Equal("Sabão", produto.Nome);
         }
