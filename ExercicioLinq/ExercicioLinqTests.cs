@@ -19,10 +19,11 @@ namespace ExercicioLinq
             produtos.Add(new Produto { Nome = "Balde", Valor = 10.1m, Quantidade = 1 });
         }
 
+
         [Fact(DisplayName = "Quantidade de produtos que possuem a palavra 'água' no nome.")]
         public void Test1()
         {
-            int quantidade = 0;
+            int quantidade = produtos.Count(p => p.Nome.Contains("água", StringComparison.CurrentCultureIgnoreCase));
 
             Assert.Equal(3, quantidade);
         }
@@ -30,7 +31,7 @@ namespace ExercicioLinq
         [Fact(DisplayName = "Produtos ordenados por nome.")]
         public void Test2()
         {
-            IEnumerable<Produto> produtosOrdenados = null;
+            IEnumerable<Produto> produtosOrdenados = produtos.OrderBy(p => p.Nome).ToList();
 
             Assert.Equal("Água", produtosOrdenados.First().Nome);
             Assert.Equal("Vassoura", produtosOrdenados.Last().Nome);
@@ -39,7 +40,7 @@ namespace ExercicioLinq
         [Fact(DisplayName = "Produtos ordenados do mais caro para o mais barato.")]
         public void Test3()
         {
-            IEnumerable<Produto> produtosOrdenados = null;
+            IEnumerable<Produto> produtosOrdenados = produtos.OrderByDescending(p => p.Valor).ToList();
 
             Assert.Equal("Água sanitária", produtosOrdenados.First().Nome);
             Assert.Equal("Sabão", produtosOrdenados.Last().Nome);
@@ -48,7 +49,7 @@ namespace ExercicioLinq
         [Fact(DisplayName = "Produto mais caro")]
         public void Test4()
         {
-            Produto produto = null;
+            Produto produto = produtos.OrderByDescending(p => (decimal)p.Valor).First();
 
             Assert.Equal("Água sanitária", produto.Nome);
         }
@@ -56,7 +57,7 @@ namespace ExercicioLinq
         [Fact(DisplayName = "Produto mais barato")]
         public void Test5()
         {
-            Produto produto = null;
+            Produto produto = produtos.OrderBy(p => (decimal)p.Valor).First();
 
             Assert.Equal("Sabão", produto.Nome);
         }
@@ -64,7 +65,7 @@ namespace ExercicioLinq
         [Fact(DisplayName = "Lista dos nomes dos produtoss")]
         public void Test6()
         {
-            IEnumerable<string> nomeDosProdutos = null;
+            IEnumerable<string> nomeDosProdutos = produtos.Select(p => p.Nome).ToList();
 
             Assert.Contains("Água", nomeDosProdutos);
         }
@@ -72,7 +73,7 @@ namespace ExercicioLinq
         [Fact(DisplayName = "Quantidade total de todos dos produtos")]
         public void Test7()
         {
-            int quantidade = 0;
+            int quantidade = produtos.Sum(p => p.Quantidade);
 
             Assert.Equal(55, quantidade);
         }
@@ -80,7 +81,7 @@ namespace ExercicioLinq
         [Fact(DisplayName = "Nome dos produtos com valor até 10.0")]
         public void Test8()
         {
-            IEnumerable<string> nomeDosProdutos = null;
+            IEnumerable<string> nomeDosProdutos = produtos.Where(p => (int)p.Valor <= 10.0).Select(p => p.Nome);
 
             Assert.Contains("Detergente de prato", nomeDosProdutos);
             Assert.Contains("Sabão", nomeDosProdutos);
@@ -89,7 +90,7 @@ namespace ExercicioLinq
         [Fact(DisplayName = "Nome dos produtos com valor maior 10.0")]
         public void Test9()
         {
-            IEnumerable<string> nomeDosProdutos = null;
+            IEnumerable<string> nomeDosProdutos = produtos.Where(p => (int)p.Valor >= 10.0).Select(p => p.Nome);
 
             Assert.Contains("Balde", nomeDosProdutos);
             Assert.Contains("Água sanitária", nomeDosProdutos);
@@ -98,7 +99,8 @@ namespace ExercicioLinq
         [Fact(DisplayName = "Verifica se o produto 'pão' está na lista")]
         public void Test10()
         {
-            bool existe = true;
+            bool existe =  produtos.Any(p => p.Nome == "pão");
+            
 
             Assert.False(existe);
         }
